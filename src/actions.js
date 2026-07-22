@@ -201,9 +201,7 @@ module.exports = {
 			description: 'Reboot the HELO. The device may report errors while it is non-responsive during reboot.',
 			options: [],
 			callback: async (event) => {
-				const result = await self.connection.sendRequest(
-					'action=set&paramid=eParamID_Reboot&value=1&configid=0'
-				)
+				const result = await self.connection.sendRequest('action=set&paramid=eParamID_Reboot&value=1&configid=0')
 				self.log('debug', 'action call: Reboot result: ' + JSON.stringify(result))
 
 				if (result.status === 'success') {
@@ -340,9 +338,9 @@ module.exports = {
 				callback: async (event) => {
 					await sendCommand('LayoutSelector&value=' + event.options.layout)
 					//await sendCommand('LayoutCommand&value=' + event.options.action);
-					setTimeout(function () {
-						sendCommand('LayoutCommand&value=' + event.options.action)
-					}, 20)
+					setTimeout(async function () {
+						await sendCommand('LayoutCommand&value=' + event.options.action)
+					}, 50)
 				},
 			}
 
